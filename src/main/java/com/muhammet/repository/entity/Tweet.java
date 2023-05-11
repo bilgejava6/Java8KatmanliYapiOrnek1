@@ -28,4 +28,5 @@ public class Tweet {
     Long paylasim_zamani;
     int puan;
     int state;
+
 }

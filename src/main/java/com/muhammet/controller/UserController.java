@@ -5,6 +5,9 @@ import com.muhammet.repository.entity.User;
 import com.muhammet.services.TakipciService;
 import com.muhammet.services.UserService;
 
+import java.util.List;
+import java.util.Scanner;
+
 public class UserController {
     private static UserService userService = new UserService();
     private static TakipciService takipciService = new TakipciService();
@@ -13,8 +16,24 @@ public class UserController {
          * Bir kullanıcıyı seçtim ve profil sayfasına gittim.
          * bu kullanıcının bilgileri nasıl görebilirim?
          * bu kullanıcıyı takip edenlerin listesi?
+         * select * from tbluser
+         * left join tbltweet on tbluser.id = tbltweet.user_id
+         * left join tbltakip on tbluser.id = tbltakip.user_id
+         * left join tbltakipci on tbluser.id = tbltakipci.user_id
+         * where tbluser.username= 'deniz'
          */
-
+        String username;
+        Takipci takipci = Takipci.builder()
+                .user_id(1l)
+                .takip_eden_id(3l)
+                .build();
+        takipciService.saveAndAdd(takipci);
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Kullanıcı adını giriniz......: ");
+        username = sc.nextLine();
+        User user =  userService.findByUsername(username);
+        System.out.println(user.toString());
+        takipciService.findAllByUserId(user.getId()); // Takipçilerinin listesini çekiyoruz.
 
     }
 
